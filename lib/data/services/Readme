@@ -1,0 +1,6 @@
+services/
+    ├── api_service.dart          // التعامل مع الشبكة (HTTP requests)
+    ├── auth_service.dart         // تسجيل الدخول، التسجيل، إدارة الجلسة
+    ├── file_service.dart         // رفع وتنزيل الملفات
+    ├── camera_service.dart       // التعامل مع الكاميرا
+    ├

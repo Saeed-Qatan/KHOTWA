@@ -1,0 +1,25 @@
+ ويحتوي على كل ما يتعلق بتصميم التطبيق من ألوان، نصوص، خطوط، وأنماط عامة للواجهة.
+
+
+
+
+import 'package:flutter/material.dart';
+import 'color_constants.dart';
+import 'text_styles.dar';
+
+class AppTheme {
+  static ThemeData lightTheme = ThemeData(
+    primaryColor: ColorConstants.primary,
+    scaffoldBackgroundColor: ColorConstants.scaffoldBackground,
+    textTheme: TextStyles.textTheme,
+    appBarTheme: AppBarTheme(
+      color: ColorConstants.primary,
+      elevation: 0,
+      iconTheme: IconThemeData(color: ColorConstants.textPrimary),
+    ),
+    buttonTheme: ButtonThemeData(
+      buttonColor: ColorConstants.primary,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
+  );
+}

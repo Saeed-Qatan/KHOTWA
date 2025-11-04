@@ -1,0 +1,5 @@
+DataSource (data/remote, data/local) → تجلب البيانات.
+
+Repository → يقرر أي مصدر يستخدم ويحوّل البيانات إن لزم.
+
+ViewModel → يستخدم repository للحصول على البيانات بدون معرفة التفاصيل الداخلية.
