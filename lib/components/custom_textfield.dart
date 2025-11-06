@@ -7,6 +7,7 @@ class MyTextFiled extends StatefulWidget {
   final String text;
   final Widget suffixIcon;
   final Widget? prefixIcon;
+  final String? Function(String?)? validator;
 
   const MyTextFiled({
     super.key,
@@ -16,6 +17,7 @@ class MyTextFiled extends StatefulWidget {
     required this.text,
     required this.suffixIcon,
     this.prefixIcon,
+    this.validator,
   });
 
   @override
@@ -32,44 +34,50 @@ class _MyTextFiledState extends State<MyTextFiled> {
         children: [
           Text(widget.text, style: TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
-          SizedBox(
-            height: 50,
-            width: double.infinity,
-            child: TextFormField(
-              textAlign: TextAlign.right,
-              controller: widget.controller,
-              obscureText: widget.obscuretext,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Color(0xffFAFAFD),
-                suffixIcon: widget.suffixIcon,
-                suffixIconColor: Colors.grey,
-                prefixIcon: widget.prefixIcon,
-                prefixIconColor: Colors.grey,
+          TextFormField(
+            textAlign: TextAlign.right,
+            controller: widget.controller,
+            obscureText: widget.obscuretext,
+            validator: widget.validator,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Color(0xffFAFAFD),
+              suffixIcon: widget.suffixIcon,
+              suffixIconColor: Colors.grey,
+              prefixIcon: widget.prefixIcon,
+              prefixIconColor: Colors.grey,
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: 14,
+                horizontal: 12,
+              ),
 
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 14,
-                  horizontal: 12,
-                ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(color: Colors.blue),
+              ),
 
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(color: Colors.red, width: 1.5),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(color: Colors.red, width: 2),
+              ),
 
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide(color: Colors.blue),
-                ),
-                hintText: widget.hintText,
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade600,
-                  fontWeight: FontWeight.bold,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide(color: Colors.blue),
-                ),
+              hintText: widget.hintText,
+              hintStyle: TextStyle(
+                color: Colors.grey.shade600,
+                fontWeight: FontWeight.bold,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(color: Colors.blue),
               ),
             ),
           ),

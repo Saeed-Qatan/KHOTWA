@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
 import 'package:khotwa/view/login_page.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -13,7 +14,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    
     Future.delayed(const Duration(seconds: 3), () {
       AppNavigation.pushAndRemove(context, LoginPage());
     });
@@ -56,8 +56,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 borderRadius: BorderRadius.circular(50),
                 child: LinearProgressIndicator(
                   backgroundColor: Colors.grey[300],
-                  valueColor:
-                      const AlwaysStoppedAnimation<Color>(Color(0xFF42A5F5)),
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                    Color(0xFF42A5F5),
+                  ),
                   minHeight: 8,
                 ),
               ),
