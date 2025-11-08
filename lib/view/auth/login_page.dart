@@ -13,8 +13,7 @@ import 'package:khotwa/view/auth/register_info_page.dart';
 import 'package:khotwa/view/auth/forget_page.dart';
 
 class LoginPage extends StatelessWidget {
-  const  LoginPage({super.key});
-
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -196,13 +195,11 @@ class LoginPage extends StatelessWidget {
                                           final messenger =
                                               ScaffoldMessenger.of(context);
 
-                                              
-                                              
-
-
                                           if (success) {
-                                             snackbarService.showSnackBar('تسجيل الدخول ناجح', Colors.green);
-                                            
+                                            snackbarService.showSnackBar(
+                                              'تسجيل الدخول ناجح',
+                                              Colors.green,
+                                            );
 
                                             // short delay for snack bar to appear
                                             await Future.delayed(
@@ -216,17 +213,16 @@ class LoginPage extends StatelessWidget {
                                               HomePage(),
                                             );
                                           } else {
-
-                                            snackbarService.showSnackBar(Text(
-                                                  viewModel
-                                                          .errorMessage
-                                                          .isNotEmpty
-                                                      ? viewModel.errorMessage
-                                                      : 'Login failed',
-                                                ),
-                                                 Colors.red);
-                                           
-                                            
+                                            snackbarService.showSnackBar(
+                                              Text(
+                                                viewModel
+                                                        .errorMessage
+                                                        .isNotEmpty
+                                                    ? viewModel.errorMessage
+                                                    : 'Login failed',
+                                              ),
+                                              Colors.red,
+                                            );
                                           }
                                         }
                                       : null,
