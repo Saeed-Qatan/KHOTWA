@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:khotwa/components/custom_button.dart';
-import 'package:khotwa/vm/register_photo_view_model.dart';
+import 'package:khotwa/vm/auth/register_photo_view_model.dart';
 import 'package:provider/provider.dart';
 
 class RegisterPhotoPage extends StatefulWidget {

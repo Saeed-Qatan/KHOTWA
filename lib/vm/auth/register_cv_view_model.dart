@@ -2,9 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
-import 'package:khotwa/model/register_data_model.dart';
-import 'package:khotwa/view/HomeSreen.dart';
-import 'package:khotwa/view/login_page.dart';
+import 'package:khotwa/model/auth/register_data_model.dart';
+import 'package:khotwa/view/home_page.dart';
+import 'package:khotwa/view/auth/login_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -189,7 +189,7 @@ class RegisterCVViewModel with ChangeNotifier {
         );
         await Future.delayed(const Duration(seconds: 2));
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(builder: (_) => const HomePage()),
           (Route<dynamic> route) => false,
         );
       }

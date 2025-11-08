@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khotwa/view/HomeSreen.dart';
+import 'package:khotwa/view/home_page.dart';
 
 class LoginViewModel with ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
@@ -61,7 +61,7 @@ class LoginViewModel with ChangeNotifier {
         );
 
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(builder: (_) => const HomePage()),
           (route) => false,
         );
       }

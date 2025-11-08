@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
-import 'package:khotwa/view/login_page.dart';
+import 'package:khotwa/view/auth/login_page.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashPage extends StatefulWidget {
+  const SplashPage({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();

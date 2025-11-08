@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:khotwa/view/Register_CV_skills_page.dart';
+import 'package:khotwa/view/auth/register_cv_skills_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
-import 'package:khotwa/model/register_data_model.dart';
+import 'package:khotwa/model/auth/register_data_model.dart';
 
 class RegisterPhotoViewModel with ChangeNotifier {
   File? _selectedImage;

@@ -4,9 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:khotwa/components/custom_button.dart';
-import 'package:khotwa/components/custom_textfield.dart';
-import 'package:khotwa/model/register_data_model.dart';
-import 'package:khotwa/vm/register_Info_view_model.dart';
+import 'package:khotwa/components/custom_text_field.dart';
+import 'package:khotwa/model/auth/register_data_model.dart';
+import 'package:khotwa/vm/auth/register_Info_view_model.dart';
 import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -91,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                         SizedBox(height: 20),
-                        MyTextFiled(
+                        CustomTextField(
                           controller: viewModel.firstName_controller,
                           hintText: 'علي',
                           obscuretext: false,
@@ -105,7 +105,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                         ),
                         SizedBox(height: 10),
-                        MyTextFiled(
+                        CustomTextField(
                           controller: viewModel.fatherName_controller,
                           hintText: 'ناصر',
                           obscuretext: false,
@@ -119,7 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                         ),
                         SizedBox(height: 10),
-                        MyTextFiled(
+                        CustomTextField(
                           controller: viewModel.familyName_controller,
                           hintText: 'محمد',
                           obscuretext: false,
@@ -133,7 +133,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                         ),
                         SizedBox(height: 10),
-                        MyTextFiled(
+                        CustomTextField(
                           controller: viewModel.email_controller,
                           hintText: 'ali@gmail.com',
                           obscuretext: false,
@@ -143,7 +143,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           validator: viewModel.emailValidator,
                         ),
                         SizedBox(height: 10),
-                        MyTextFiled(
+                        CustomTextField(
                           controller: viewModel.phone_controller,
                           hintText: '+967774165326',
                           obscuretext: false,
@@ -157,7 +157,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                         ),
                         SizedBox(height: 10),
-                        MyTextFiled(
+                        CustomTextField(
                           text: 'كلمة المرور',
                           controller: viewModel.password_controller,
                           hintText: 'كلمة المرور',
@@ -175,7 +175,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           validator: viewModel.passwordValidator,
                         ),
                         const SizedBox(height: 10),
-                        MyTextFiled(
+                        CustomTextField(
                           controller: viewModel.confirm_password_controller,
                           hintText: 'تأكيد كلمة المرور',
                           text: 'تأكيد كلمة المرور',

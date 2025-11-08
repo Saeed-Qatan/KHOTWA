@@ -5,9 +5,9 @@ import 'package:khotwa/vm/auth/login_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:khotwa/components/custom_button.dart';
-import 'package:khotwa/components/custom_textfield.dart';
-import 'package:khotwa/view/register_info_page.dart';
-import 'package:khotwa/view/forget_page.dart';
+import 'package:khotwa/components/custom_text_field.dart';
+import 'package:khotwa/view/auth/register_info_page.dart';
+import 'package:khotwa/view/auth/forget_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -94,7 +94,7 @@ class LoginPage extends StatelessWidget {
                                   const SizedBox(height: 30),
 
                                   // البريد الالكتروني
-                                  MyTextFiled(
+                                  CustomTextField(
                                     controller: viewModel.emailController,
                                     hintText: 'ادخل بريدك الالكتروني',
                                     obscuretext: false,
@@ -108,7 +108,7 @@ class LoginPage extends StatelessWidget {
                                   const SizedBox(height: 10),
 
                                   // كلمة المرور
-                                  MyTextFiled(
+                                  CustomTextField(
                                     text: 'كلمة المرور',
                                     controller: viewModel.passwordController,
                                     hintText: 'كلمة المرور',

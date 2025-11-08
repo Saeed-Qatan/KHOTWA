@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MyTextFiled extends StatefulWidget {
+class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obscuretext;
@@ -9,7 +9,7 @@ class MyTextFiled extends StatefulWidget {
   final Widget? prefixIcon;
   final String? Function(String?)? validator;
 
-  const MyTextFiled({
+  const CustomTextField({
     super.key,
     required this.controller,
     required this.hintText,
@@ -21,10 +21,10 @@ class MyTextFiled extends StatefulWidget {
   });
 
   @override
-  State<MyTextFiled> createState() => _MyTextFiledState();
+  State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
-class _MyTextFiledState extends State<MyTextFiled> {
+class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
