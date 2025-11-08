@@ -7,7 +7,7 @@ import 'package:khotwa/view/Register_photo_page.dart';
 import 'package:khotwa/view/login_page.dart';
 
 
-class RegisterViewModel with ChangeNotifier {
+class RegisterInfoViewModel with ChangeNotifier {
   // --- Controllers ---
   final TextEditingController firstName_controller = TextEditingController();
   final TextEditingController fatherName_controller = TextEditingController();

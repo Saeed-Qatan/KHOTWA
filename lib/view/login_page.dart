@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
-import 'package:khotwa/vm/auth/LoginViewModel.dart';
+import 'package:khotwa/vm/auth/login_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:khotwa/components/custom_button.dart';
@@ -34,6 +34,8 @@ class LoginPage extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.all(10),
                             width: MediaQuery.of(context).size.width * 0.9,
+                            height: MediaQuery.of(context).size.height * 0.95,
+
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(30),

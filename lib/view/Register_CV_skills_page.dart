@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:khotwa/components/custom_button.dart';
 import 'package:khotwa/model/register_data_model.dart';
-import 'package:khotwa/vm/RegisterCV_view_model.dart';
+import 'package:khotwa/vm/register_cv_view_model.dart';
 import 'package:provider/provider.dart';
 
 class RegisterCVPage extends StatefulWidget {

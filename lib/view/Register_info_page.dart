@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:khotwa/components/custom_button.dart';
 import 'package:khotwa/components/custom_textfield.dart';
 import 'package:khotwa/model/register_data_model.dart';
-import 'package:khotwa/vm/registerInfo_view_model.dart';
+import 'package:khotwa/vm/register_Info_view_model.dart';
 import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -32,9 +32,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 password: '',
               ),
         ),
-        ChangeNotifierProvider(create: (_) => RegisterViewModel()),
+        ChangeNotifierProvider(create: (_) => RegisterInfoViewModel()),
       ],
-      child: Consumer<RegisterViewModel>(
+      child: Consumer<RegisterInfoViewModel>(
         builder: (context, viewModel, child) {
           return Scaffold(
             backgroundColor: Color(0xffF6F9FF),

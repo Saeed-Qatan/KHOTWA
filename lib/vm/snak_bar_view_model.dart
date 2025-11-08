@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:khotwa/core/constants/color_constants.dart';
 import 'package:khotwa/data/services/snackbar_services.dart';
 
-class SnackbarVm extends ChangeNotifier {
+class SnakBarViewModel  extends ChangeNotifier {
   SnackbarServices _snackbarServices = SnackbarServices();
-  SnackbarVm(this._snackbarServices);
+  SnakBarViewModel(this._snackbarServices);
 
   Future<void> submitDate() async {
     Future.delayed(Duration(seconds: 3));
