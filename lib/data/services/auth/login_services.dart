@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 
 class LoginServices {
-  Future<Map<String, dynamic>> login(String email, String password) async {
+  Future<Map<String, dynamic>> login(String email, String password, bool rememberMe) async {
     final url = Uri.parse(ApiConstants.baseUrl + ApiConstants.login);
     final response = await http.post(
       url,

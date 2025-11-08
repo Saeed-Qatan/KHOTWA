@@ -115,7 +115,7 @@ class RegisterInfoViewModel with ChangeNotifier {
   }
 
   void onLoginPressed(BuildContext context) {
-    AppNavigation.push(context, const LoginPage());
+    AppNavigation.push(context,  LoginPage());
   }
 
   @override

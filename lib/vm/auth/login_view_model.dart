@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:khotwa/view/home_page.dart';
+import 'package:khotwa/data/services/auth/login_services.dart';
+import 'package:khotwa/model/auth/login_model.dart';
 
 class LoginViewModel with ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  final formKey = GlobalKey<FormState>();
+  LoginModel loginData = LoginModel(email: '', password: '', rememberMe: false);
+
+  final LoginServices _loginServices = LoginServices();
+  bool isLoaded = false;
   bool obscurePassword = true;
-  bool isLoading = false;
-  bool rememberMe = false;
-  String? errorMessage;
+
+  String errorMessage = '';
 
   bool get canLogin =>
       emailController.text.isNotEmpty &&
       passwordController.text.isNotEmpty &&
-      !isLoading;
+      !isLoaded;
 
-  void togglePasswordVisibility() {
-    obscurePassword = !obscurePassword;
+  bool get _isLoaded => isLoaded;
+
+  void toggleRememberMe(bool value) {
+    loginData.rememberMe = value;
     notifyListeners();
   }
 
-  void toggleRememberMe(bool value) {
-    rememberMe = value;
+  void togglePasswordVisibility() {
+    obscurePassword = !obscurePassword;
     notifyListeners();
   }
 
@@ -40,51 +45,62 @@ class LoginViewModel with ChangeNotifier {
     return null;
   }
 
-  Future<void> onLoginPressed(BuildContext context) async {
-    if (!formKey.currentState!.validate()) return;
+  Future<bool> login() async {
+    loginData.email = emailController.text.trim();
+    loginData.password = passwordController.text.trim();
 
-    isLoading = true;
-    notifyListeners();
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    final email = emailController.text.trim();
-    final password = passwordController.text;
-
-    if (email == emailController.text.trim() && password == passwordController.text) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('✅ تسجيل الدخول ناجح!'),
-            backgroundColor: Colors.green,
-          ),
-        );
-
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (_) => const HomePage()),
-          (route) => false,
-        );
-      }
+    // Validation
+    if (emailValidator(loginData.email) != null) {
+      errorMessage = emailValidator(loginData.email)!;
+      notifyListeners();
+      return false;
     }
-    
-    else {
-      errorMessage = "البريد الإلكتروني أو كلمة المرور غير صحيحة";
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(errorMessage!),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
-      }
+    if (passwordValidator(loginData.password) != null) {
+      errorMessage = 'Password must be at least 6 characters';
+      notifyListeners();
+      return false;
     }
 
-    isLoading = false;
+    isLoaded = true;
+    errorMessage = '';
     notifyListeners();
+
+    try {
+      // The service returns a Map<String, dynamic>, so capture it and interpret the result.
+      final Map<String, dynamic> response = await _loginServices.login(
+        loginData.email,
+        loginData.password,
+        loginData.rememberMe,
+      );
+
+      // Determine success from common response patterns: 'success' or 'status' or presence of 'token'
+      final bool success =
+          (response['success'] == true) ||
+          (response['status'] == true) ||
+          (response['token'] != null);
+
+      if (success) {
+        errorMessage = '';
+      } else {
+        errorMessage =
+            response['message']?.toString() ??
+            'Login failed. Check your credentials.';
+      }
+    } catch (e) {
+      errorMessage = e.toString();
+    } finally {
+      isLoaded = false;
+      notifyListeners();
+    }
+
+    return true;
   }
 
-  void disposeControllers() {
+  @override
+  void dispose() {
     emailController.dispose();
     passwordController.dispose();
+
+    super.dispose();
   }
 }

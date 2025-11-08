@@ -7,24 +7,26 @@ String LoginModelsToJson(List<LoginModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class LoginModel {
-  String? email;
-  String? password;
+  String email;
+  String password;
+  bool rememberMe;
 
-  LoginModel({this.email, this.password});
+  LoginModel({required this.email, required this.password, required this.rememberMe});
 
-  LoginModel.fromJson(Map<String, dynamic> json) {
-    email = json['email'];
-    password = json['password'];
+  factory LoginModel.fromJson(Map<String, dynamic> json) {
+    return LoginModel(
+      email: json['email'],
+      password: json['password'],
+      rememberMe: json['rememberMe'] ?? false,
+    );
   }
-
-  factory LoginModel.fromMap(Map<String, dynamic> map) {
-    return LoginModel(email: map['email'], password: map['password']);
-  }
+ 
 
   Map<String, dynamic> toJson() {
     return {
       'email': email,
       'password': password,
+      'rememberMe': rememberMe,
     };
   }
 }
