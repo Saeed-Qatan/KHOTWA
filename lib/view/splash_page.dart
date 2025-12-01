@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
 import 'package:khotwa/view/auth/login_page.dart';
+import 'package:khotwa/view/auth/login_page1.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -15,7 +16,7 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3), () {
-      AppNavigation.pushAndRemove(context, LoginPage());
+      AppNavigation.pushAndRemove(context, LoginPage1());
     });
   }
 
