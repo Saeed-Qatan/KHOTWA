@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
       child: Consumer<LoginViewModel>(
         builder: (context, viewModel, child) {
           return Scaffold(
-            backgroundColor: const Color(0xffF6F9FF),
+            backgroundColor: AppTheme.backgroundColor,
             body: SafeArea(
               child: Center(
                 child: LayoutBuilder(
@@ -41,7 +41,8 @@ class LoginPage extends StatelessWidget {
                               child: Container(
                                 padding: const EdgeInsets.all(10),
                                 width: MediaQuery.of(context).size.width * 0.9,
-                                height: MediaQuery.of(context).size.height * 0.95,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.95,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30),
@@ -62,7 +63,10 @@ class LoginPage extends StatelessWidget {
                                       height: 90,
                                       width: 90,
                                       decoration: BoxDecoration(
-                                        color: AppTheme.lightTheme.colorScheme.primary,
+                                        color: AppTheme
+                                            .lightTheme
+                                            .colorScheme
+                                            .primary,
                                         borderRadius: BorderRadius.circular(25),
                                         boxShadow: [
                                           BoxShadow(
@@ -79,7 +83,7 @@ class LoginPage extends StatelessWidget {
                                         color: Colors.white,
                                       ),
                                     ),
-                                  
+
                                     const SizedBox(height: 10),
                                     const Text(
                                       "مرحبا بعودتك",
@@ -97,19 +101,21 @@ class LoginPage extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(height: 30),
-                          
+
                                     // البريد الالكتروني
                                     CustomTextField(
                                       controller: viewModel.emailController,
                                       hintText: 'ادخل بريدك الالكتروني',
                                       obscuretext: false,
                                       text: 'البريد الالكتروني',
-                                      suffixIcon: const Icon(Icons.email_outlined),
+                                      suffixIcon: const Icon(
+                                        Icons.email_outlined,
+                                      ),
                                       prefixIcon: null,
                                       validator: viewModel.emailValidator,
                                     ),
                                     const SizedBox(height: 10),
-                          
+
                                     // كلمة المرور
                                     CustomTextField(
                                       text: 'كلمة المرور',
@@ -126,11 +132,13 @@ class LoginPage extends StatelessWidget {
                                         onPressed:
                                             viewModel.togglePasswordVisibility,
                                       ),
-                                      suffixIcon: const Icon(Icons.lock_outline),
+                                      suffixIcon: const Icon(
+                                        Icons.lock_outline,
+                                      ),
                                       validator: viewModel.passwordValidator,
                                     ),
                                     const SizedBox(height: 5),
-                          
+
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
@@ -152,20 +160,24 @@ class LoginPage extends StatelessWidget {
                                             children: [
                                               TextSpan(
                                                 text: 'هل نسيت كلمة المرور؟ ',
-                                                style: const TextStyle(
-                                                  color: Color(0xff1F59DF),
+                                                style: TextStyle(
+                                                  color: AppTheme
+                                                      .lightTheme
+                                                      .colorScheme
+                                                      .primary,
                                                   fontWeight: FontWeight.bold,
                                                 ),
-                                                recognizer: TapGestureRecognizer()
-                                                  ..onTap = () {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ForgetPage(),
-                                                      ),
-                                                    );
-                                                  },
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ForgetPage(),
+                                                          ),
+                                                        );
+                                                      },
                                               ),
                                             ],
                                           ),
@@ -173,7 +185,7 @@ class LoginPage extends StatelessWidget {
                                       ],
                                     ),
                                     const SizedBox(height: 5),
-                          
+
                                     // زر تسجيل الدخول
                                     CustomButton(
                                       text: viewModel.isLoaded
@@ -181,7 +193,10 @@ class LoginPage extends StatelessWidget {
                                           : 'تسجيل الدخول',
                                       icon: const Icon(Icons.login_rounded),
                                       color: viewModel.canLogin
-                                          ? const Color(0xff1F59DF)
+                                          ? AppTheme
+                                                .lightTheme
+                                                .colorScheme
+                                                .primary
                                           : Colors.grey.shade400,
                                       textColor: Colors.white,
                                       // enable button only when canLogin is true and not loading
@@ -191,28 +206,30 @@ class LoginPage extends StatelessWidget {
                                           ? () async {
                                               // hide keyboard
                                               FocusScope.of(context).unfocus();
-                          
-                                              final bool success = await viewModel
-                                                  .login();
-                          
+
+                                              final bool success =
+                                                  await viewModel.login();
+
                                               if (!context.mounted) return;
-                          
+
                                               final messenger =
                                                   ScaffoldMessenger.of(context);
-                          
+
                                               if (success) {
                                                 snackbarService.showSnackBar(
                                                   'تسجيل الدخول ناجح',
-                                                  Colors.green,
+                                                  AppTheme.successColor,
                                                 );
-                          
+
                                                 // short delay for snack bar to appear
                                                 await Future.delayed(
-                                                  const Duration(milliseconds: 400),
+                                                  const Duration(
+                                                    milliseconds: 400,
+                                                  ),
                                                 );
-                          
+
                                                 if (!context.mounted) return;
-                          
+
                                                 AppNavigation.pushReplacment(
                                                   context,
                                                   HomePage(),
@@ -226,18 +243,20 @@ class LoginPage extends StatelessWidget {
                                                         ? viewModel.errorMessage
                                                         : 'Login failed',
                                                   ),
-                                                  Colors.red,
+                                                  AppTheme.lightTheme.colorScheme.error,
                                                 );
                                               }
                                             }
                                           : null,
                                     ),
-                          
+
                                     const SizedBox(height: 15),
-                          
+
                                     // Divider
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 1.0),
+                                      padding: const EdgeInsets.only(
+                                        bottom: 1.0,
+                                      ),
                                       child: Row(
                                         children: [
                                           Expanded(
@@ -267,7 +286,7 @@ class LoginPage extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                          
+
                                     CustomButton(
                                       text: 'تسجيل الدخول بجوجل ',
                                       icon: const Icon(
@@ -293,7 +312,9 @@ class LoginPage extends StatelessWidget {
                                         children: [
                                           const TextSpan(
                                             text: 'ليس لديك حساب؟ ',
-                                            style: TextStyle(color: Colors.black),
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                            ),
                                           ),
                                           const TextSpan(text: "  "),
                                           TextSpan(

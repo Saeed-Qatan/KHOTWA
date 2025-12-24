@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
+  static final Color backgroundColor = const Color(0xffF6F9FF);
+  static final Color successColor = const Color(0xff10B981);
   static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     fontFamily: 'Cairo',

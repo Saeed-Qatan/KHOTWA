@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
+import 'package:khotwa/core/them/app_theme.dart';
 import 'package:khotwa/view/auth/register_info_page.dart';
 import 'package:khotwa/widgets/DisplayBox_widget.dart';
 import 'package:provider/provider.dart';
@@ -14,12 +15,14 @@ import 'package:khotwa/main.dart';
 
 class LoginPage1 extends StatefulWidget {
   const LoginPage1({super.key});
+  
 
   @override
   State<LoginPage1> createState() => _LoginPage1State();
 }
 
 class _LoginPage1State extends State<LoginPage1> {
+      
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -32,6 +35,7 @@ class _LoginPage1State extends State<LoginPage1> {
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: DisplayBoxWidget(
+                  icon: Icons.person_outline_rounded,
                   child: Column(
                     children: [
                       const SizedBox(height: 10),
@@ -103,8 +107,8 @@ class _LoginPage1State extends State<LoginPage1> {
                               children: [
                                 TextSpan(
                                   text: 'هل نسيت كلمة المرور؟ ',
-                                  style: const TextStyle(
-                                    color: Color(0xff1F59DF),
+                                  style:  TextStyle(
+                                    color: AppTheme.lightTheme.colorScheme.primary,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   recognizer: TapGestureRecognizer()

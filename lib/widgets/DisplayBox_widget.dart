@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class DisplayBoxWidget extends StatelessWidget {
   final Widget child;
-  const DisplayBoxWidget({Key? key, required this.child}) : super(key: key);
+  final IconData icon;
+   
+  const DisplayBoxWidget({Key? key, required this.child, required this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +43,8 @@ class DisplayBoxWidget extends StatelessWidget {
                 ),
               ],
             ),
-            child: const Icon(
-              Icons.person_outline_rounded,
+            child: Icon(
+              icon,
               size: 50,
               color: Colors.white,
             ),
