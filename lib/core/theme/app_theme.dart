@@ -6,7 +6,7 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     fontFamily: 'Cairo',
-    scaffoldBackgroundColor: const Color(0xffF5F5F5),
+    scaffoldBackgroundColor: const Color(0xffF6F9FF),
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
       primary: Color(0xff2563EB),
@@ -57,7 +57,7 @@ class AppTheme {
         backgroundColor: const Color(0xff2563EB),
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+      //  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
       ),
     ),
   );

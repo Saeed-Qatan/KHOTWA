@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:khotwa/core/theme/app_theme.dart';
 
 class DisplayBoxWidget extends StatelessWidget {
   final Widget child;
@@ -32,7 +33,7 @@ class DisplayBoxWidget extends StatelessWidget {
             height: 90,
             width: 90,
             decoration: BoxDecoration(
-              color: const Color(0xff1F59DF),
+              color: Theme.of(context).colorScheme.primary,
               borderRadius: BorderRadius.circular(25),
               boxShadow: [
                 BoxShadow(
@@ -46,7 +47,7 @@ class DisplayBoxWidget extends StatelessWidget {
             child: Icon(
               icon,
               size: 50,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
           const SizedBox(height: 20),

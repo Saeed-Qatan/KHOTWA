@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
-import 'package:khotwa/core/them/app_theme.dart';
+import 'package:khotwa/core/theme/app_theme.dart';
 import 'package:khotwa/view/auth/register_info_page.dart';
 import 'package:khotwa/widgets/DisplayBox_widget.dart';
 import 'package:provider/provider.dart';
@@ -13,16 +13,14 @@ import 'package:khotwa/view/home_page.dart';
 import 'package:khotwa/vm/auth/login_view_model.dart';
 import 'package:khotwa/main.dart';
 
-class LoginPage1 extends StatefulWidget {
-  const LoginPage1({super.key});
-  
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<LoginPage1> createState() => _LoginPage1State();
+  State<LoginPage> createState() => _LoginPage1State();
 }
 
-class _LoginPage1State extends State<LoginPage1> {
-      
+class _LoginPage1State extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -107,8 +105,10 @@ class _LoginPage1State extends State<LoginPage1> {
                               children: [
                                 TextSpan(
                                   text: 'هل نسيت كلمة المرور؟ ',
-                                  style:  TextStyle(
-                                    color: AppTheme.lightTheme.colorScheme.primary,
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   recognizer: TapGestureRecognizer()

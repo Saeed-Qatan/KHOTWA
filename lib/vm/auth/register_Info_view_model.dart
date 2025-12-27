@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
 import 'package:khotwa/model/auth/register_data_model.dart';
+import 'package:khotwa/view/auth/login_page1.dart';
 import 'package:provider/provider.dart';
 import 'package:khotwa/view/auth/register_photo_page.dart';
-import 'package:khotwa/view/auth/login_page.dart';
 
 
 class RegisterInfoViewModel with ChangeNotifier {
