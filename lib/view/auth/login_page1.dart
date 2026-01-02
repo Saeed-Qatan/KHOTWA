@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart';
+ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
 import 'package:khotwa/core/theme/app_theme.dart';
