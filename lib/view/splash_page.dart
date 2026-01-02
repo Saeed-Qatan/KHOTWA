@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
-import 'package:khotwa/view/auth/login_page.dart';
+
+import 'package:khotwa/view/auth/login_page1.dart';
+import 'package:khotwa/view/auth/register_info_page1.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

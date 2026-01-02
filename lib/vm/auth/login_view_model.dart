@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:khotwa/data/services/auth/login_services.dart';
+import 'package:khotwa/data/repostitories/auth/login_repo.dart';
 import 'package:khotwa/model/auth/login_model.dart';
 
 class LoginViewModel with ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  LoginModel loginData = LoginModel(email: '', password: '', rememberMe: false);
+  LoginModel loginData = LoginModel(email: '', password: "", rememberMe: false);
 
-  final LoginServices _loginServices = LoginServices();
+  final LoginRepo _loginRepo = LoginRepo();
   bool isLoaded = false;
   bool obscurePassword = true;
 
@@ -67,7 +67,7 @@ class LoginViewModel with ChangeNotifier {
 
     try {
       // The service returns a Map<String, dynamic>, so capture it and interpret the result.
-      final Map<String, dynamic> response = await _loginServices.login(
+      final Map<String, dynamic> response = await _loginRepo.login(
         loginData.email,
         loginData.password,
         loginData.rememberMe,
