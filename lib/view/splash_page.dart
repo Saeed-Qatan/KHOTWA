@@ -17,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3), () {
-      AppNavigation.pushAndRemove(context, RegisterInfoPage1());
+      AppNavigation.pushAndRemove(context, LoginPage());
     });
   }
 

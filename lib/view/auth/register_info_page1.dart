@@ -9,10 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:khotwa/components/custom_button.dart';
 import 'package:khotwa/components/custom_text_field.dart';
-import 'package:khotwa/view/auth/forget_page.dart';
-import 'package:khotwa/view/home_page.dart';
-import 'package:khotwa/vm/auth/login_view_model.dart';
-import 'package:khotwa/main.dart';
+
 
 class RegisterInfoPage1 extends StatefulWidget {
   const RegisterInfoPage1({super.key});

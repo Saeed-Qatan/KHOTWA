@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
 import 'package:khotwa/core/theme/app_theme.dart';
 import 'package:khotwa/view/auth/register_info_page.dart';
+import 'package:khotwa/view/main_view.dart';
 import 'package:khotwa/widgets/DisplayBox_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -28,7 +29,7 @@ class _LoginPage1State extends State<LoginPage> {
       child: Consumer<LoginViewModel>(
         builder: (context, viewModel, child) {
           return Scaffold(
-            backgroundColor: const Color(0xffF6F9FF),
+            backgroundColor: AppTheme.lightTheme.scaffoldBackgroundColor,
             body: Center(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(vertical: 20),
@@ -149,7 +150,7 @@ class _LoginPage1State extends State<LoginPage> {
                                 if (success) {
                                   snackbarService.showSnackBar(
                                     'تسجيل الدخول ناجح',
-                                    Colors.green,
+                                    AppTheme.successColor,
                                   );
 
                                   // short delay for snack bar to appear
@@ -161,7 +162,7 @@ class _LoginPage1State extends State<LoginPage> {
 
                                   AppNavigation.pushReplacment(
                                     context,
-                                    HomePage(),
+                                    MainView(),
                                   );
                                 } else {
                                   snackbarService.showSnackBar(
@@ -169,8 +170,9 @@ class _LoginPage1State extends State<LoginPage> {
                                       viewModel.errorMessage.isNotEmpty
                                           ? viewModel.errorMessage
                                           : 'Login failed',
+                                          
                                     ),
-                                    Colors.red,
+                                    AppTheme.lightTheme.colorScheme.error,
                                   );
                                 }
                               }
@@ -242,16 +244,13 @@ class _LoginPage1State extends State<LoginPage> {
                             const TextSpan(text: "  "),
                             TextSpan(
                               text: "إنشاء حساب جديد",
-                              style: const TextStyle(
-                                color: Color(0xff1F59DF),
+                              style:  TextStyle(
+                                color: AppTheme.lightTheme.colorScheme.primary,
                                 fontWeight: FontWeight.bold,
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  AppNavigation.push(
-                                    context,
-                                    const RegisterPage(),
-                                  );
+                                  AppNavigation.pushReplacment(context, RegisterPage());
                                 },
                             ),
                           ],

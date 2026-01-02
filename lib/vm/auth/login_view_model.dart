@@ -6,7 +6,7 @@ class LoginViewModel with ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  LoginModel loginData = LoginModel(email: '', password: '', rememberMe: false);
+  LoginModel loginData = LoginModel(email: '', password: "", rememberMe: false);
 
   final LoginRepo _loginRepo = LoginRepo();
   bool isLoaded = false;
