@@ -1,4 +1,4 @@
- import 'package:flutter/gestures.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
 import 'package:khotwa/core/theme/app_theme.dart';
@@ -170,7 +170,6 @@ class _LoginPage1State extends State<LoginPage> {
                                       viewModel.errorMessage.isNotEmpty
                                           ? viewModel.errorMessage
                                           : 'Login failed',
-                                          
                                     ),
                                     AppTheme.lightTheme.colorScheme.error,
                                   );
@@ -215,14 +214,54 @@ class _LoginPage1State extends State<LoginPage> {
                       ),
 
                       CustomButton(
-                        text: 'تسجيل الدخول بجوجل ',
+                        text: viewModel.isLoaded
+                            ? 'جارٍ...'
+                            : 'تسجيل الدخول بجوجل ',
                         icon: const Icon(
                           FontAwesomeIcons.google,
                           color: Colors.red,
                         ),
                         color: Colors.white,
                         textColor: Colors.black,
-                        onPressed: () {},
+                        onPressed: viewModel.isLoaded
+                            ? null
+                            : () async {
+                                // Hide keyboard
+                                FocusScope.of(context).unfocus();
+
+                                final bool success = await viewModel
+                                    .loginWithGoogle();
+
+                                if (!context.mounted) return;
+
+                                if (success) {
+                                  snackbarService.showSnackBar(
+                                    'تم تسجيل الدخول بنجاح عبر Google',
+                                    AppTheme.successColor,
+                                  );
+
+                                  // Short delay for snack bar to appear
+                                  await Future.delayed(
+                                    const Duration(milliseconds: 400),
+                                  );
+
+                                  if (!context.mounted) return;
+
+                                  AppNavigation.pushReplacment(
+                                    context,
+                                    MainView(),
+                                  );
+                                } else {
+                                  snackbarService.showSnackBar(
+                                    Text(
+                                      viewModel.errorMessage.isNotEmpty
+                                          ? viewModel.errorMessage
+                                          : 'فشل تسجيل الدخول عبر Google',
+                                    ),
+                                    AppTheme.lightTheme.colorScheme.error,
+                                  );
+                                }
+                              },
                       ),
                       CustomButton(
                         text: 'تسجيل الدخول بفيسبوك ',
@@ -244,13 +283,16 @@ class _LoginPage1State extends State<LoginPage> {
                             const TextSpan(text: "  "),
                             TextSpan(
                               text: "إنشاء حساب جديد",
-                              style:  TextStyle(
+                              style: TextStyle(
                                 color: AppTheme.lightTheme.colorScheme.primary,
                                 fontWeight: FontWeight.bold,
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  AppNavigation.pushReplacment(context, RegisterPage());
+                                  AppNavigation.pushReplacment(
+                                    context,
+                                    RegisterPage(),
+                                  );
                                 },
                             ),
                           ],

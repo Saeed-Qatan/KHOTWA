@@ -3,7 +3,7 @@ import 'package:khotwa/core/storage/loacal_storage.dart';
 
 class LoginRepo {
   final LoginServices _loginServices = LoginServices();
-  final LoacalStorage _loacalStorage =  LoacalStorage();
+  final LoacalStorage _loacalStorage = LoacalStorage();
 
   Future<Map<String, dynamic>> login(
     String email,
@@ -21,6 +21,16 @@ class LoginRepo {
     // Also save user data if needed, or other flags
     if (rememberMe) {
       await _loacalStorage.saveString('email', email);
+    }
+
+    return response;
+  }
+
+  Future<Map<String, dynamic>> loginWithGoogle(String idToken) async {
+    final response = await _loginServices.loginWithGoogle(idToken);
+
+    if (response.containsKey('token') && response['token'] != null) {
+      await _loacalStorage.saveString('token', response['token']);
     }
 
     return response;

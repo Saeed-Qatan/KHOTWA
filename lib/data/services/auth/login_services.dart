@@ -15,4 +15,11 @@ class LoginServices {
     });
     return response;
   }
+
+  Future<Map<String, dynamic>> loginWithGoogle(String idToken) async {
+    final response = await _apiClient.post(ApiConstants.loginWithGoogle, {
+      'idToken': idToken,
+    });
+    return response;
+  }
 }

@@ -1,4 +1,4 @@
-package com.example.khotwa
+package com.khotwa.app
 
 import io.flutter.embedding.android.FlutterActivity
 
