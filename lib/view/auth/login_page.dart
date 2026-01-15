@@ -1,33 +1,46 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:khotwa/core/navigations/navigations.dart';
-import 'package:khotwa/core/theme/app_theme.dart';
-import 'package:khotwa/view/auth/register_info_page.dart';
-import 'package:khotwa/view/main_view.dart';
-import 'package:khotwa/widgets/DisplayBox_widget.dart';
-import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:khotwa/components/custom_button.dart';
-import 'package:khotwa/components/custom_text_field.dart';
-import 'package:khotwa/view/auth/forget_page.dart';
-import 'package:khotwa/view/home_page.dart';
-import 'package:khotwa/vm/auth/login_view_model.dart';
-import 'package:khotwa/main.dart';
+import 'package:provider/provider.dart';
 
-class LoginPage extends StatefulWidget {
+import '../../components/custom_button.dart';
+import '../../components/custom_text_field.dart';
+import '../../core/navigations/navigations.dart';
+import '../../core/theme/app_theme.dart';
+import '../../main.dart'; // for snackbarService
+import '../../view/auth/forget_page.dart';
+import '../../view/auth/register_info_page.dart';
+import '../../view/main_view.dart';
+import '../../vm/auth/login_view_model.dart';
+import '../../widgets/DisplayBox_widget.dart';
+
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
-  @override
-  State<LoginPage> createState() => _LoginPage1State();
-}
-
-class _LoginPage1State extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => LoginViewModel(),
       child: Consumer<LoginViewModel>(
-        builder: (context, viewModel, child) {
+        builder: (context, vm, child) {
+          // Listen to state changes
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (vm.state == LoginState.success) {
+              snackbarService.showSnackBar(
+                'تسجيل الدخول ناجح',
+                AppTheme.successColor,
+              );
+              // Wait briefly for snackbar then navigate
+              AppNavigation.pushReplacment(context, MainView());
+            }
+            if (vm.state == LoginState.error && vm.errorMessage != null) {
+              snackbarService.showSnackBar(
+                vm.errorMessage!,
+                AppTheme.lightTheme.colorScheme.error,
+              );
+            }
+          });
+
           return Scaffold(
             backgroundColor: AppTheme.lightTheme.scaffoldBackgroundColor,
             body: Center(
@@ -55,38 +68,39 @@ class _LoginPage1State extends State<LoginPage> {
                       ),
                       const SizedBox(height: 30),
 
-                      // البريد الالكتروني
+                      // Email
                       CustomTextField(
-                        controller: viewModel.emailController,
+                        controller: vm.emailController,
                         hintText: 'ادخل بريدك الالكتروني',
                         obscuretext: false,
                         text: 'البريد الالكتروني',
                         suffixIcon: const Icon(Icons.email_outlined),
                         prefixIcon: null,
-                        validator: viewModel.emailValidator,
+                        validator: vm.emailValidator,
                       ),
                       const SizedBox(height: 10),
 
-                      // كلمة المرور
+                      // Password
                       CustomTextField(
                         text: 'كلمة المرور',
-                        controller: viewModel.passwordController,
+                        controller: vm.passwordController,
                         hintText: 'كلمة المرور',
-                        obscuretext: viewModel.obscurePassword,
+                        obscuretext: vm.obscurePassword,
                         prefixIcon: IconButton(
                           icon: Icon(
-                            viewModel.obscurePassword
+                            vm.obscurePassword
                                 ? Icons.visibility_off_outlined
                                 : Icons.visibility_outlined,
                             color: Colors.grey,
                           ),
-                          onPressed: viewModel.togglePasswordVisibility,
+                          onPressed: vm.togglePasswordVisibility,
                         ),
                         suffixIcon: const Icon(Icons.lock_outline),
-                        validator: viewModel.passwordValidator,
+                        validator: vm.passwordValidator,
                       ),
                       const SizedBox(height: 5),
 
+                      // Options Row
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -95,9 +109,9 @@ class _LoginPage1State extends State<LoginPage> {
                             activeColor: Colors.blueAccent,
                             checkColor: Colors.white,
                             splashRadius: 4,
-                            value: viewModel.loginData.rememberMe,
+                            value: vm.loginData.rememberMe,
                             onChanged: (value) {
-                              viewModel.toggleRememberMe(value ?? false);
+                              vm.toggleRememberMe(value ?? false);
                             },
                           ),
                           const SizedBox(width: 50),
@@ -114,11 +128,9 @@ class _LoginPage1State extends State<LoginPage> {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.push(
+                                      AppNavigation.push(
                                         context,
-                                        MaterialPageRoute(
-                                          builder: (context) => ForgetPage(),
-                                        ),
+                                        const ForgetPage(),
                                       );
                                     },
                                 ),
@@ -129,51 +141,18 @@ class _LoginPage1State extends State<LoginPage> {
                       ),
                       const SizedBox(height: 5),
 
-                      // زر تسجيل الدخول
+                      // Login Button
                       CustomButton(
-                        text: viewModel.isLoaded ? 'جارٍ...' : 'تسجيل الدخول',
+                        text: vm.isLoading ? 'جارٍ...' : 'تسجيل الدخول',
                         icon: const Icon(Icons.login_rounded),
-                        color: viewModel.canLogin
+                        color: vm.canLogin
                             ? const Color(0xff1F59DF)
                             : Colors.grey.shade400,
                         textColor: Colors.white,
-                        // enable button only when canLogin is true and not loading
-                        onPressed: (viewModel.canLogin && !viewModel.isLoaded)
-                            ? () async {
-                                // hide keyboard
+                        onPressed: vm.canLogin
+                            ? () {
                                 FocusScope.of(context).unfocus();
-
-                                final bool success = await viewModel.login();
-
-                                if (!context.mounted) return;
-
-                                if (success) {
-                                  snackbarService.showSnackBar(
-                                    'تسجيل الدخول ناجح',
-                                    AppTheme.successColor,
-                                  );
-
-                                  // short delay for snack bar to appear
-                                  await Future.delayed(
-                                    const Duration(milliseconds: 400),
-                                  );
-
-                                  if (!context.mounted) return;
-
-                                  AppNavigation.pushReplacment(
-                                    context,
-                                    MainView(),
-                                  );
-                                } else {
-                                  snackbarService.showSnackBar(
-                                    Text(
-                                      viewModel.errorMessage.isNotEmpty
-                                          ? viewModel.errorMessage
-                                          : 'Login failed',
-                                    ),
-                                    AppTheme.lightTheme.colorScheme.error,
-                                  );
-                                }
+                                vm.submit();
                               }
                             : null,
                       ),
@@ -213,56 +192,24 @@ class _LoginPage1State extends State<LoginPage> {
                         ),
                       ),
 
+                      // Google Login
                       CustomButton(
-                        text: viewModel.isLoaded
-                            ? 'جارٍ...'
-                            : 'تسجيل الدخول بجوجل ',
+                        text: vm.isLoading ? 'جارٍ...' : 'تسجيل الدخول بجوجل ',
                         icon: const Icon(
                           FontAwesomeIcons.google,
                           color: Colors.red,
                         ),
                         color: Colors.white,
                         textColor: Colors.black,
-                        onPressed: viewModel.isLoaded
+                        onPressed: vm.isLoading
                             ? null
-                            : () async {
-                                // Hide keyboard
+                            : () {
                                 FocusScope.of(context).unfocus();
-
-                                final bool success = await viewModel
-                                    .loginWithGoogle();
-
-                                if (!context.mounted) return;
-
-                                if (success) {
-                                  snackbarService.showSnackBar(
-                                    'تم تسجيل الدخول بنجاح عبر Google',
-                                    AppTheme.successColor,
-                                  );
-
-                                  // Short delay for snack bar to appear
-                                  await Future.delayed(
-                                    const Duration(milliseconds: 400),
-                                  );
-
-                                  if (!context.mounted) return;
-
-                                  AppNavigation.pushReplacment(
-                                    context,
-                                    MainView(),
-                                  );
-                                } else {
-                                  snackbarService.showSnackBar(
-                                    Text(
-                                      viewModel.errorMessage.isNotEmpty
-                                          ? viewModel.errorMessage
-                                          : 'فشل تسجيل الدخول عبر Google',
-                                    ),
-                                    AppTheme.lightTheme.colorScheme.error,
-                                  );
-                                }
+                                vm.loginWithGoogle();
                               },
                       ),
+
+                      // Facebook Login (Placeholder)
                       CustomButton(
                         text: 'تسجيل الدخول بفيسبوك ',
                         icon: const Icon(
@@ -273,6 +220,8 @@ class _LoginPage1State extends State<LoginPage> {
                         textColor: Colors.black,
                         onPressed: () {},
                       ),
+
+                      // Register Link
                       Text.rich(
                         TextSpan(
                           children: [

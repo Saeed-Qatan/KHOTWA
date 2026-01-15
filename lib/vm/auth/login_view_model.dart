@@ -4,23 +4,32 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:khotwa/data/repostitories/auth/login_repo.dart';
 import 'package:khotwa/model/auth/login_model.dart';
 
+enum LoginState { idle, loading, success, error }
+
 class LoginViewModel with ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  LoginState state = LoginState.idle;
   LoginModel loginData = LoginModel(email: '', password: "", rememberMe: false);
 
   final LoginRepo _loginRepo = LoginRepo();
   final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
-  bool isLoaded = false;
-  bool obscurePassword = true;
 
-  String errorMessage = '';
+  bool obscurePassword = true;
+  String? errorMessage;
+
+  bool get isLoading => state == LoginState.loading;
 
   bool get canLogin =>
       emailController.text.isNotEmpty &&
       passwordController.text.isNotEmpty &&
-      !isLoaded;
+      !isLoading;
+
+  LoginViewModel() {
+    emailController.addListener(notifyListeners);
+    passwordController.addListener(notifyListeners);
+  }
 
   void toggleRememberMe(bool value) {
     loginData.rememberMe = value;
@@ -46,123 +55,111 @@ class LoginViewModel with ChangeNotifier {
     return null;
   }
 
-  Future<bool> login() async {
+  Future<void> submit() async {
     loginData.email = emailController.text.trim();
     loginData.password = passwordController.text.trim();
 
     // Validation
-    if (emailValidator(loginData.email) != null) {
-      errorMessage = emailValidator(loginData.email)!;
+    final emailError = emailValidator(loginData.email);
+    if (emailError != null) {
+      errorMessage = emailError;
+      state = LoginState.error;
       notifyListeners();
-      return false;
-    }
-    if (passwordValidator(loginData.password) != null) {
-      errorMessage = 'Password must be at least 6 characters';
-      notifyListeners();
-      return false;
+      return;
     }
 
-    isLoaded = true;
-    errorMessage = '';
+    final passwordError = passwordValidator(loginData.password);
+    if (passwordError != null) {
+      errorMessage = passwordError;
+      state = LoginState.error;
+      notifyListeners();
+      return;
+    }
+
+    state = LoginState.loading;
+    errorMessage = null;
     notifyListeners();
 
     try {
-      // The service returns a Map<String, dynamic>, so capture it and interpret the result.
       final Map<String, dynamic> response = await _loginRepo.login(
         loginData.email,
         loginData.password,
         loginData.rememberMe,
       );
 
-      // Determine success from common response patterns: 'success' or 'status' or presence of 'token'
       final bool success =
           (response['success'] == true) ||
           (response['status'] == true) ||
           (response['token'] != null);
 
       if (success) {
-        errorMessage = '';
+        state = LoginState.success;
       } else {
         errorMessage =
             response['message']?.toString() ??
-            'Login failed. Check your credentials.';
+            'فشل تسجيل الدخول. تحقق من بيانات الاعتماد.';
+        state = LoginState.error;
       }
     } catch (e) {
       errorMessage = e.toString();
-    } finally {
-      isLoaded = false;
-      notifyListeners();
+      state = LoginState.error;
     }
 
-    return true;
+    notifyListeners();
   }
 
-  Future<bool> loginWithGoogle() async {
-    _setLoading(true);
-    errorMessage = '';
+  Future<void> loginWithGoogle() async {
+    state = LoginState.loading;
+    errorMessage = null;
     notifyListeners();
 
     try {
-      // Initialize Google Sign-In (required in v7.2.0+)
       await _googleSignIn.initialize(
         serverClientId:
             "590747616886-qb27mgf3l29bg3iojv7921vra3d7rp6u.apps.googleusercontent.com",
       );
 
-      // Authenticate with Google (replaces signIn() in v7.x)
       final GoogleSignInAccount? account = await _googleSignIn.authenticate();
 
       if (account == null) {
-        // User cancelled the sign-in
         errorMessage = 'تم إلغاء تسجيل الدخول';
-        _setLoading(false);
-        return false;
+        state = LoginState.error;
+        notifyListeners();
+        return;
       }
 
-      // Get authentication tokens
       final GoogleSignInAuthentication auth = await account.authentication;
-
-      // Get the ID token for backend authentication
       final String? idToken = auth.idToken;
 
       if (idToken == null) {
         errorMessage = 'فشل الحصول على رمز المصادقة';
-        _setLoading(false);
-        return false;
+        state = LoginState.error;
+        notifyListeners();
+        return;
       }
 
-      // Send the idToken to your backend for verification and user creation/login
       final Map<String, dynamic> response = await _loginRepo.loginWithGoogle(
         idToken,
       );
 
-      // Determine success from common response patterns
       final bool success =
           (response['success'] == true) ||
           (response['status'] == true) ||
           (response['token'] != null);
 
       if (success) {
-        errorMessage = '';
+        state = LoginState.success;
         debugPrint('Backend Google Sign-In successful!');
       } else {
         errorMessage =
             response['message']?.toString() ?? 'فشل تسجيل الدخول عبر الخادم';
-        _setLoading(false);
-        return false;
+        state = LoginState.error;
       }
-
-      _setLoading(false);
-      return true;
     } catch (e) {
       errorMessage = 'فشل تسجيل الدخول بواسطة Google: ${e.toString()}';
-      _setLoading(false);
-      return false;
+      state = LoginState.error;
     }
-  }
 
-  void _setLoading(bool value) {
-    isLoaded = value;
     notifyListeners();
   }
 
@@ -189,6 +186,8 @@ class LoginViewModel with ChangeNotifier {
 
   @override
   void dispose() {
+    emailController.removeListener(notifyListeners);
+    passwordController.removeListener(notifyListeners);
     emailController.dispose();
     passwordController.dispose();
 

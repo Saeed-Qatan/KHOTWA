@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
 
-class CirticalContainter extends StatelessWidget {
+class CirticalContainer extends StatelessWidget {
   final Color color;
   final Icon icon;
-  const CirticalContainter({super.key, required this.color, required this.icon});
+  const CirticalContainer({super.key, required this.color, required this.icon});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(100),
-                    
-                  ),
-
-                  child: Icon(
-                    icon.icon,
-                    size: 50,
-                    color: Colors.white,
-                  ),
-                ),
+      body:   Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: color.withValues(alpha: 0.2),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(icon.icon, color: color),
+                      ),
     );
   }
 }

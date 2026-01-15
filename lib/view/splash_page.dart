@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
 
-import 'package:khotwa/view/auth/login_page1.dart';
+import 'package:khotwa/view/auth/login_page.dart';
 import 'package:khotwa/view/auth/register_info_page1.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:khotwa/core/storage/loacal_storage.dart';

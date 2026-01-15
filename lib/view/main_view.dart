@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:khotwa/view/home_page.dart';
 import 'package:khotwa/view/meeting_view.dart';
 import 'package:khotwa/view/orders_view.dart';
 import 'package:khotwa/view/profile_view.dart';
 import 'package:khotwa/view/search_view.dart';
+import 'package:khotwa/widgets/custom_app_bar.dart';
+import 'package:khotwa/widgets/custom_bottom_nav_bar.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -32,26 +35,11 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar:  const CustomAppBar(),
       body: IndexedStack(index: _currentIndex, children: _pages),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: CustomBottomNavBar(
         currentIndex: _currentIndex,
         onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed, // To show labels for > 3 items
-        selectedItemColor: Colors.amber, // Example selected color
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: 'Orders',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.meeting_room),
-            label: 'Meeting',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
       ),
     );
   }

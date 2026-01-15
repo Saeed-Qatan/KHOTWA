@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
 import 'package:khotwa/model/auth/register_data_model.dart';
 import 'package:khotwa/model/auth/register_model.dart';
-import 'package:khotwa/view/auth/login_page1.dart';
+import '../../view/auth/login_page.dart';
 import 'package:provider/provider.dart';
 import 'package:khotwa/view/auth/register_photo_page.dart';
-
 
 class RegisterInfoViewModel with ChangeNotifier {
   // --- Controllers ---
@@ -19,7 +18,6 @@ class RegisterInfoViewModel with ChangeNotifier {
   final TextEditingController confirm_password_controller =
       TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
 
   bool _obscure_password = true;
   bool _obscure_confirm_password = true;
@@ -107,17 +105,16 @@ class RegisterInfoViewModel with ChangeNotifier {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (newContext) => ChangeNotifierProvider.value(
-              value: registerData,
-              child: const RegisterPhotoPage(),
-            ),
+        builder: (newContext) => ChangeNotifierProvider.value(
+          value: registerData,
+          child: const RegisterPhotoPage(),
+        ),
       ),
     );
   }
 
   void onLoginPressed(BuildContext context) {
-    AppNavigation.push(context,  LoginPage());
+    AppNavigation.push(context, LoginPage());
   }
 
   @override
