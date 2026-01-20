@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:khotwa/widgets/seliver_app_bar.dart';
 
 class MeetingView extends StatelessWidget {
   const MeetingView({super.key});
@@ -6,7 +7,12 @@ class MeetingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Center(child: Text('Meeting View')),
+      body: CustomScrollView(
+        slivers: [
+          MysilverAppBar(title: const Text('Meeting iew')),
+          SliverFillRemaining(child: const Center(child: Text('Meeting View'))),
+        ],
+      ),
     );
   }
 }

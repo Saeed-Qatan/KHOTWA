@@ -52,6 +52,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
+          
 
           // // 3. Content
           // SafeArea(

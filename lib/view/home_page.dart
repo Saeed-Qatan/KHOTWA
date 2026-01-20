@@ -12,7 +12,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: const CustomAppBar(),
+
       body: const Center(child: Text('Welcome to the Home Screen!')),
     );
   }
