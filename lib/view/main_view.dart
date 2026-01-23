@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:khotwa/view/home_page.dart';
+import 'package:khotwa/view/home_view.dart';
 import 'package:khotwa/view/meeting_view.dart';
 import 'package:khotwa/view/orders_view.dart';
 import 'package:khotwa/view/profile_view.dart';

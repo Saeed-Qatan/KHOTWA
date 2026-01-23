@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class CirticalContainer extends StatelessWidget {
   final Color color;
   final Icon icon;
-  const CirticalContainer({super.key, required this.color, required this.icon});
+  final Function onTap;
+  const CirticalContainer({super.key, required this.color, required this.icon, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

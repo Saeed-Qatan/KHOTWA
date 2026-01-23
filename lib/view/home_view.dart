@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:khotwa/widgets/custom_app_bar.dart';
 import 'package:khotwa/widgets/seliver_app_bar.dart';
 
-class MeetingView extends StatelessWidget {
-  const MeetingView({super.key});
+class ProfileView extends StatefulWidget {
+  const ProfileView({super.key});
 
+  @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

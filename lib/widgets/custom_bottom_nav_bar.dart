@@ -41,7 +41,7 @@ class CustomBottomNavBar extends StatelessWidget {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
-            top: 20, 
+            top: 20,
             left: Directionality.of(context) == TextDirection.rtl
                 ? null
                 : currentIndex * itemWidth + (itemWidth / 2) - 22,
@@ -49,12 +49,14 @@ class CustomBottomNavBar extends StatelessWidget {
                 ? currentIndex * itemWidth + (itemWidth / 2) - 22
                 : null,
 
-            child: Container(
+            child: SizedBox(
               height: 40,
               width: 40,
-              decoration: BoxDecoration(
-                color: const Color(0xFFD9E9FB), // Light blue background
-                borderRadius: BorderRadius.circular(20),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFFD9E9FB), // Light blue background
+                  borderRadius: BorderRadius.circular(20),
+                ),
               ),
             ),
           ),

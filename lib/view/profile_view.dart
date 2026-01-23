@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:khotwa/widgets/custom_app_bar.dart';
+import 'package:khotwa/widgets/seliver_app_bar.dart';
 
-class ProfileView extends StatelessWidget {
-  const ProfileView({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      body: const Center(child: Text('Profile View')),
+      appBar: CustomAppBar(
+       
+      ),
+      body: Center(child: Text('Profile View')),
     );
   }
 }

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:khotwa/core/navigations/navigations.dart';
 import 'package:khotwa/model/auth/register_data_model.dart';
-import 'package:khotwa/view/home_page.dart';
+import 'package:khotwa/view/home_view.dart';
+import 'package:khotwa/view/profile_view.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
